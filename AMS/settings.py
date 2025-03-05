@@ -30,6 +30,10 @@ INSTALLED_APPS = [
     'amsApp',
 ]
 
+
+AUTH_USER_MODEL = 'amsApp.User'
+
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
