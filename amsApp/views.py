@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse
+from django.http import HttpResponse
 from .forms import *
 from django.contrib.auth import authenticate, login, logout
-from django.contrib import auth
+from django.contrib import auth, messages
 
 # Create your views here.
 
@@ -74,4 +76,36 @@ def logout(request):
 #---------------- home page --------------#
 
 def home(request):
-    return render(request, 'home.html')
+    associations = Association.objects.all()
+
+    context = {'associations': associations}
+
+    return render(request, 'home.html', context=context)
+
+
+#---------------- association details display -----------------#
+
+def associationDetails(request, pk):
+    association = Association.objects.get(id=pk)
+
+    context = {'association': association}
+
+    return render(request, 'userTemplates/associationDetails.html', context=context)
+
+
+#------------------- membership request process ----------------------#
+
+def membershipRequest(request, pk):
+    association = Association.objects.get(id=pk)
+    user = request.user
+
+    print(association, user, pk)
+
+
+    if association and user is not None:
+        AssociationMember.objects.create(user=user, association=association)
+        messages.success(request, 'Request is successfully submitted')
+        return redirect(reverse('associationDetails', kwargs={'pk': pk}))
+    else:
+        return HttpResponse("there is a error")
+

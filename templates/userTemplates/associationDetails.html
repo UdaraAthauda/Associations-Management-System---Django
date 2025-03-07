@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}AMS|Association Details{% endblock %}
+
+{% block content %}
+
+{% include 'navbar.html' %}
+
+<div class="container text-center mt-3">
+    <h1>{{association.AssociationName|upper}}</h1>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="container mt-4 form-control" style="max-width: 500px; margin: 0 auto;">
+        <p>Created at {{association.created_at.date}}</p>
+        <img src="{{association.profilePic.url}}" style="width: 150px;" />
+        <br><br>
+        <p>{{association.description}}</p>
+
+        <a href="{% url 'membershipRequest' association.id %}" class="btn btn-info">Send Membership Request</a>
+        <br><br>
+        
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,40 +1,85 @@
-<nav class="navbar navbar-expand-lg bg-light" data-bs-theme="light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">AMS</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarColor03">
-        <ul class="navbar-nav me-auto">
-          <li class="nav-item">
-            <a class="nav-link active" href="#">Home
-              <span class="visually-hidden">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Features</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Pricing</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Separated link</a>
-            </div>
-          </li>
-        </ul>
-        <form class="d-flex">
-          <input class="form-control me-sm-2" type="search" placeholder="Search">
-          <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-        </form>
-      </div>
+<!-- Navigation bar -->
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-center">
+
+  <a class="navbar-brand main-heading ms-5"> 
+          
+    &nbsp; <a href="{% url 'home' %}" class="text-decoration-none fw-bold h4">AMS HOME</a>
+  
+  </a>
+
+
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarNavDropdown"
+    aria-controls="navbarNavDropdown"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+
+  </button>
+
+
+    <div class="collapse navbar-collapse text-center" id="navbarNavDropdown">
+
+      
+      <ul class="navbar-nav ms-auto">
+
+
+        &nbsp;     &nbsp;     &nbsp; 
+
+
+        <li class="nav-item">
+    
+          <a class="btn navbar-btn fw-bold" type="button" href="">Memberships</a>
+
+        </li>
+
+        &nbsp;     &nbsp;     &nbsp; 
+
+
+        <li class="nav-item">
+    
+          <a class="btn navbar-btn fw-bold" type="button" href="">Ideas/Complains</a>
+
+        </li>
+
+
+        &nbsp;     &nbsp;     &nbsp; 
+        
+
+        <li class="nav-item dropdown">
+          <a class="btn btn-outline-dark navbar-btn fw-bold dropdown-toggle" 
+             href="#" role="button" 
+             data-bs-toggle="dropdown" 
+             aria-expanded="false" 
+             style="border-radius: 100px;">
+              Profile
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="">Profile</a></li>
+              <li><a class="dropdown-item" href="">Settings</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="{% url 'logout' %}">Logout</a></li>
+          </ul>
+        </li>
+      
+
+
+        &nbsp;     &nbsp;     &nbsp; 
+        
+
+      </ul>
+    
+      
     </div>
-  </nav>
+
+
+</nav>
+
+<!-- Navigation bar END -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
