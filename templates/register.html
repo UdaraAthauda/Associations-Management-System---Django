@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 
 {% block title %}AMS|Register{% endblock %}
 
@@ -68,22 +69,22 @@
 
     <!-- Navigation bar END -->
 
-    <div class="container text-center mt-5 mb-5">
+    <div class="container text-center mt-5 mb-5" style="max-width: 500px; margin: 0 auto;">
         <h1>User Registration</h1>
 
         <form method="POST" class="form-control mb-5">
-            
+            <br>
             {% csrf_token %}
 
             {% if errors %}
                 <div class="alert alert-danger">
                     <p>there are errors in your form, please enter correctly!</p>
-                    <p>{{errors}}</p>
                 </div>
             {% endif %}
 
-            {{form.as_p}}
-
+            {{form|crispy}}
+            
+            <br>
             <input type="submit" value="Register" class="btn btn-success">
             <p>Already,have an account? <a href="{% url 'login' %}" class="text-info">Login</a></p>
         </form>

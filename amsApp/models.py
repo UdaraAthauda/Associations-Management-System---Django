@@ -13,6 +13,8 @@ def validatePhone(value):
 
 # Create your models here.
 
+#--------------------- customize default user model ------------------------#
+ 
 class User(AbstractUser):
     phone = models.CharField(max_length=15, validators=[validatePhone])
     address = models.TextField(blank=True, null=True)
