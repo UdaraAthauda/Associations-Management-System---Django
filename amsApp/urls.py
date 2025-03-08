@@ -11,6 +11,9 @@ urlpatterns = [
     # association details display url
     path('associationDetails/<int:pk>/', views.associationDetails, name="associationDetails"),
 
-    #membership request url
+    # membership request url
     path('membershipRequest/<int:pk>/', views.membershipRequest, name="membershipRequest"),
+
+    # membership display url
+    path('memberships', views.memberships, name="memberships"),
 ]

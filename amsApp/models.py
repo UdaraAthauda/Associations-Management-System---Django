@@ -44,7 +44,7 @@ class AssociationMember(models.Model):
     adminAccept = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"{self.user} - {self.association}"
+        return f"{self.user} - {self.association} - {self.adminAccept}"
     
 
     class Meta:

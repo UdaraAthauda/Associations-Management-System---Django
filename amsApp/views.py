@@ -76,9 +76,12 @@ def logout(request):
 #---------------- home page --------------#
 
 def home(request):
-    associations = Association.objects.all()
 
-    context = {'associations': associations}
+    user = request.user
+    members = AssociationMember.objects.filter(adminAccept=True, user=user)
+    notReg = Association.objects.exclude(members__in=members)
+
+    context = {'associations': notReg }
 
     return render(request, 'home.html', context=context)
 
@@ -96,16 +99,27 @@ def associationDetails(request, pk):
 #------------------- membership request process ----------------------#
 
 def membershipRequest(request, pk):
-    association = Association.objects.get(id=pk)
-    user = request.user
+    try:
+        association = Association.objects.get(id=pk)
+        user = request.user
 
-    print(association, user, pk)
-
-
-    if association and user is not None:
-        AssociationMember.objects.create(user=user, association=association)
-        messages.success(request, 'Request is successfully submitted')
+        if association and user is not None:
+            AssociationMember.objects.create(user=user, association=association)
+            messages.success(request, 'Request is successfully submitted')
+            return redirect(reverse('associationDetails', kwargs={'pk': pk}))
+    except:
+        messages.error(request, 'Request is already submitted, or error in the process?')
         return redirect(reverse('associationDetails', kwargs={'pk': pk}))
-    else:
-        return HttpResponse("there is a error")
+    
+    
+#-------------------- membership display ----------------------#
+
+def memberships(request):
+    currentUser = request.user
+    members = AssociationMember.objects.filter(adminAccept=True, user=currentUser)
+    registered = Association.objects.filter(members__in=members)
+
+    context = {'associations': registered}
+
+    return render(request, 'userTemplates/memberships.html', context=context)
 
