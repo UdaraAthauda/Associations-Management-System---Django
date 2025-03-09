@@ -123,3 +123,35 @@ def memberships(request):
 
     return render(request, 'userTemplates/memberships.html', context=context)
 
+
+#------------------- association services display --------------------#
+
+def services(request, pk):
+    association = Association.objects.get(id=pk)
+    services = Service.objects.filter(association=association)
+    associationName = association.AssociationName
+    
+    context = {'services': services, 'associationName':associationName}
+
+    return render(request, 'userTemplates/services.html', context=context)
+
+
+#------------------- association service request process ----------------------#
+
+def serviceRequest(request, pk):    
+    try:
+        service = Service.objects.get(id=pk)
+
+        association = Association.objects.filter(services=service)
+        for a in association:
+            id = a.id
+
+        user = request.user
+
+        if service and user is not None:
+            ServiceRequest.objects.create(user=user, service=service)
+            messages.success(request, 'Request is successfully submitted')
+            return redirect(reverse('services', kwargs={'pk': id}))
+    except:
+        messages.error(request, 'Request is already submitted, or error in the process?')
+        return redirect(reverse('services', kwargs={'pk': id}))

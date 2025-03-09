@@ -16,4 +16,10 @@ urlpatterns = [
 
     # membership display url
     path('memberships', views.memberships, name="memberships"),
+
+    # accosiation servises display url
+    path('services/<int:pk>/', views.services, name="services"),
+
+    # association service request url
+    path('serviceRequest/<int:pk>/', views.serviceRequest, name="serviceRequest"),
 ]

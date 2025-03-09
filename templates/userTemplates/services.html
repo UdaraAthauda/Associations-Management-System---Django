@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}AMS|Services{% endblock %}
+
+{% block content %}
+
+{% include 'navbar.html' %}
+
+<div class="container mt-3">
+    <h1 class="text-center">{{associationName|upper}} SERVICES</h1>
+
+    {% if messages %}
+        {% for message in messages %}
+            
+            {% if message.tags == "error" %}
+                <div class="alert alert-danger text-center">{{ message }}</div>
+            {% endif %}
+            
+            {% if message.tags == "success" %}
+                <div class="alert alert-success text-center">{{ message }}</div>
+            {% endif %}
+            
+        {% endfor %}
+    {% endif %}
+
+    <div class="row mb-5 mt-4">
+        {% for service in services  %}
+            <div class="form-control col-md-2 m-3" style="max-width: 500px; margin: 0 auto;">
+                <h4 class="text-warning">{{service.serviceTitle}}</h4> 
+                <hr>
+                <p><small>Created at - {{service.created_at.date}}</small></p>
+                <p class="text-center">Description : {{service.description}}</p>
+                <hr>
+                <div class="text-center">
+                    <a href="{% url 'serviceRequest' service.id %}" class="btn btn-success">Request the Service</a>
+                </div>
+            </div>
+            <br>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}

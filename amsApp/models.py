@@ -44,9 +44,40 @@ class AssociationMember(models.Model):
     adminAccept = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"{self.user} - {self.association} - {self.adminAccept}"
+        return f"{self.id} - {self.user} - {self.association} - {self.adminAccept}"
     
 
     class Meta:
         unique_together = ('user', 'association')  # Prevent duplicate membership
+
+
+#--------------------- association service model ------------------------#
+
+class Service(models.Model):
+    association = models.ForeignKey(Association, on_delete=models.CASCADE, related_name="services")
+    serviceTitle = models.CharField(max_length=255)
+    description = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.serviceTitle} - {self.association}"
+    
+
+#---------------------- association service request model ----------------------------#
+
+class ServiceRequest(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="service_requests")
+    service = models.OneToOneField(Service, related_name="requests", on_delete=models.CASCADE)
+    status = models.CharField(
+        max_length=20,
+        choices=[("pending", "Pending"), ("approved", "Approved"), ("rejected", "Rejected")],
+        default="pending",
+    )
+    request_date = models.DateTimeField(auto_now_add=True)
+    response_date = models.DateTimeField(null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.service.association} - {self.service.serviceTitle} ({self.status})"
+
+
 
