@@ -22,4 +22,10 @@ urlpatterns = [
 
     # association service request url
     path('serviceRequest/<int:pk>/', views.serviceRequest, name="serviceRequest"),
+
+    # user profile url
+    path('userProfile', views.userProfile, name="userProfile"),
+
+    # user password change url
+    path('password/', views.password, name="password"),
 ]

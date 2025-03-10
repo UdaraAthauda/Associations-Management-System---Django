@@ -155,3 +155,51 @@ def serviceRequest(request, pk):
     except:
         messages.error(request, 'Request is already submitted, or error in the process?')
         return redirect(reverse('services', kwargs={'pk': id}))
+
+
+#-------------------- user profile/update --------------------#
+
+def userProfile(request):
+    currentUser = request.user
+
+    if request.method == 'POST':
+        form = UserUpdateForm(request.POST, request.FILES, instance=currentUser)
+
+        if form.is_valid():
+            form.save()
+            return redirect('userProfile')
+        
+        else:
+            errors = form.errors
+            return render(request, 'userTemplates/userProfile.html', {'form': form, 'errors': errors})
+
+
+    form = UserUpdateForm(instance=currentUser)
+
+    context = {'form': form}
+
+    return render(request, 'userTemplates/userProfile.html', context=context)
+
+
+#-------------------- user password change -------------------------#
+
+def password(request):
+    currentUser = request.user
+
+    if request.method == 'POST':
+        form = PasswordChangeForm(currentUser, request.POST)
+
+        if form.is_valid():
+            form.save()
+
+            return redirect('logout')
+        
+        else:
+            return render(request, 'userTemplates/passwordChange.html', {'form': form})
+        
+    form = PasswordChangeForm(currentUser)
+
+    context = {'form': form}
+
+    return render(request, 'userTemplates/passwordChange.html', context=context)
+

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}AMS|User Profile{% endblock %}
+
+{% block content %}
+
+{% include 'navbar.html' %}
+
+    <div class="container text-center mt-3 mb-5" style="max-width: 500px; margin: 0 auto;">
+        <h1>User Profile</h1>
+
+        <form method="POST" class="form-control mb-5" enctype="multipart/form-data">
+            <br>
+            {% csrf_token %}
+
+            {% if errors %}
+                <div class="alert alert-danger">
+                    <p>there are errors in your form, please enter correctly!</p>
+                </div>
+            {% endif %}
+
+            {{form|crispy}}
+            
+            <br>
+            <input type="submit" value="Update" class="btn btn-success">
+            <p>Change your <a href="{% url 'password' %}" class="text-info">Password</a></p>
+        </form>
+    </div>
+    <br><br>
+
+
+{% endblock %}
