@@ -7,8 +7,14 @@
 
 {% include 'navbar.html' %}
 
+<section class="bg-primary text-white text-center py-5">
+    <div class="container">
+        <h1 class="fw-bold">Association Display</h1>
+        <p class="lead">Spread your connectivity</p>
+    </div>
+</section>
+
 <div class="container text-center mt-3">
-    <h1>Association Display</h1>
 
     <div class="container mt-4">
         <div class="row g-4">
@@ -17,6 +23,7 @@
                 
                 <div class="col-md-2" style="background-color: lightblue; padding: 20px; text-align: center; border-radius: 10px;">
                     <a href="{% url 'associationDetails' association.id  %}" class="text-decoration-none">
+                        <small class="text-success-emphasis">get membership</small>
                         <img src="{{ association.profilePic.url }}" style="width: 100px;" />
                         <br><br>
                         {{ association.AssociationName|upper }}

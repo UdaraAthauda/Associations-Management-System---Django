@@ -68,9 +68,38 @@
 
     <!-- Navigation bar END -->
 
+    <section class="bg-primary text-white text-center py-5">
+      <div class="container">
+          <h1 class="fw-bold">Welcome to the Associations Management System</h1>
+          <p class="lead">Manage and join multiple associations with ease.</p>
+      </div>
+    </section>
+
     <div class="container text-center mt-5">
-        <h1>this is the index</h1>
-    </div>
+      <h1 class="fw-bold">Join With Us!</h1>
+      <p class="lead">Join and manage multiple associations, get services, and collaborate with communities.</p>
+      <a href="{% url 'register' %}" class="btn btn-primary">Get Started</a>
+      <a href="{% url 'login' %}" class="btn btn-outline-secondary">Login</a><br>
+      <small>if you are an Admin go to<a href="/admin/" class="text-decoration-none text-info"> Admin Panel</a></small>
+  </div>
+
+  <!-- Features Section -->
+  <div class="container text-center mt-5">
+      <div class="row">
+          <div class="col-md-4">
+              <h3>🔗 Easy Management</h3>
+              <p>Manage all your associations from one place.</p>
+          </div>
+          <div class="col-md-4">
+              <h3>👥 User-Friendly</h3>
+              <p>Simple registration and association joining.</p>
+          </div>
+          <div class="col-md-4">
+              <h3>⚡ Fast & Secure</h3>
+              <p>Your data is safe with our secure system.</p>
+          </div>
+      </div>
+  </div>
 
 
 {% endblock %}

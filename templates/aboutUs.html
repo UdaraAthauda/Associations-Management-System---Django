@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}AMS|About Us{% endblock %}
+
+{% block content %}
+
+{% include 'navbar.html' %}
+
+<!-- About Us Section -->
+<section class="bg-primary text-white text-center py-5">
+    <div class="container">
+        <h1 class="fw-bold">Welcome to Our Associations Management System</h1>
+        <p class="lead">Connecting People, Empowering Communities</p>
+    </div>
+</section>
+
+<!-- Content Section -->
+<section class="container my-5">
+    <div class="row align-items-center">
+        <div class="col-md-6">
+            <h2>Who We Are</h2>
+            <p>We provide a platform for managing **multiple associations, unions, and communities** seamlessly. Whether you are an administrator or a member, our system ensures easy interaction and service access.</p>
+        </div>
+        <div class="col-md-6">
+            <img src="media/images/logo1.jpg" class="img-fluid rounded" alt="Community">
+        </div>
+    </div>
+
+    <div class="row align-items-center my-5">
+        <div class="col-md-6 order-md-2">
+            <h2>What We Offer</h2>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">📌 **User Registration & Management** – Secure authentication system.</li>
+                <li class="list-group-item">📌 **Multiple Association Management** – Users can join and manage associations.</li>
+                <li class="list-group-item">📌 **Admin Dashboard** – Tools for administrators to manage memberships.</li>
+                <li class="list-group-item">📌 **Service Requests & Memberships** – Users can request and track services.</li>
+                <li class="list-group-item">📌 **Secure & Scalable** – Built with Django and Bootstrap.</li>
+            </ul>
+        </div>
+        <div class="col-md-6 order-md-1">
+            <img src="media/images/off.jpg" class="img-fluid rounded" alt="Technology">
+        </div>
+    </div>
+
+    <div class="text-center">
+        <h2>Join Us Today</h2>
+        <p>Become part of our growing community. **Manage, connect, and grow** with ease.</p>
+        <a href="{% url 'register' %}" class="btn btn-primary btn-lg">Get Started</a>
+    </div>
+</section>
+
+{% endblock %}

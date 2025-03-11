@@ -34,3 +34,13 @@ class UserUpdateForm(UserChangeForm):
         super().__init__(*args, **kwargs)
         self.fields.pop('password', None)  # Removes the password field
 
+
+# feedback form
+class FeedbackForm(forms.ModelForm):
+    
+    class Meta:
+        model = UserFeedbacks
+        fields = ['title', 'association', 'description',]
+        exclude = ['user',]
+
+

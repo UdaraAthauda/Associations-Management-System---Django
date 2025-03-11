@@ -7,6 +7,7 @@ urlpatterns = [
     path('register', views.register, name="register"),
     path('login', views.login, name="login"),
     path('logout', views.logout, name="logout"),
+    path('aboutUs', views.aboutUs, name="aboutUs"),
 
     # association details display url
     path('associationDetails/<int:pk>/', views.associationDetails, name="associationDetails"),
@@ -28,4 +29,7 @@ urlpatterns = [
 
     # user password change url
     path('password/', views.password, name="password"),
+
+    # user feedback url
+    path('feedbacks', views.feedbacks, name="feedbacks"),
 ]

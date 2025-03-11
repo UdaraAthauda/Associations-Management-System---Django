@@ -80,4 +80,16 @@ class ServiceRequest(models.Model):
         return f"{self.user.username} - {self.service.association} - {self.service.serviceTitle} ({self.status})"
 
 
+#------------------- ideas and complains submission model -----------------#
+
+class UserFeedbacks(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="feedback")
+    title = models.CharField(max_length=100)
+    association = models.ManyToManyField(Association, blank=True, related_name="feedbackAssociation")
+    description = models.TextField(blank=True, null=True)
+    submitDate = models.DateTimeField(auto_now_add=True)
+    reply = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.user} - {self.title} - {self.association}"
 

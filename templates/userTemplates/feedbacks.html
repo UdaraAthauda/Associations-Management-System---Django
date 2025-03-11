@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}AMS|Feedbacks{% endblock %}
+
+{% block content %}
+
+{% include 'navbar.html' %}
+
+    <!-- Contact Us and feedback Section -->
+    <section class="bg-primary text-white text-center py-5">
+        <div class="container">
+            <h1 class="fw-bold">Get in Touch</h1>
+            <p class="lead">We are here to assist you. Contact us for any inquiries or support.</p>
+        </div>
+    </section>
+
+    <div class="container text-center mt-3 mb-5" style="max-width: 500px; margin: 0 auto;">
+        <h1>Give Your Feedback For Us</h1>
+
+        <form method="POST" class="form-control mb-5" enctype="multipart/form-data">
+            <br>
+            {% csrf_token %}
+
+            {% if messages %}
+                {% for message in messages %}
+            
+                    {% if message.tags == "error" %}
+                        <div class="alert alert-danger">{{ message }}</div>
+                    {% endif %}
+            
+                    {% if message.tags == "success" %}
+                        <div class="alert alert-success">{{ message }}</div>
+                    {% endif %}
+            
+                {% endfor %}
+            {% endif %}
+
+            {{form|crispy}}
+            
+            <br>
+            <input type="submit" value="Submit" class="btn btn-success">
+            <p>Go <a href="{% url 'home' %}" class="text-info">Back</a></p>
+        </form>
+    </div>
+    <br><br>
+
+
+    <!-- Contact Information -->
+    <section class="container my-5">
+        <div class="row text-center">
+            <div class="col-md-4">
+                <h4>📍 Address</h4>
+                <p>123 Main Street, Your City, Your Country</p>
+            </div>
+            <div class="col-md-4">
+                <h4>📧 Email</h4>
+                <p>support@example.com</p>
+            </div>
+            <div class="col-md-4">
+                <h4>📞 Phone</h4>
+                <p>+123 456 7890</p>
+            </div>
+        </div>
+    </section>
+
+
+{% endblock %}

@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from .forms import *
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import auth, messages
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -11,6 +12,14 @@ from django.contrib import auth, messages
 
 def index(request):
     return render(request, 'index.html')
+
+
+#------------------ about us page --------------------#
+
+@login_required(login_url='login')
+def aboutUs(requets):
+    return render(requets, 'aboutUs.html')
+
 
 #----------- user registration page -------------#
 
@@ -75,6 +84,7 @@ def logout(request):
 
 #---------------- home page --------------#
 
+@login_required(login_url='login')
 def home(request):
 
     user = request.user
@@ -88,6 +98,7 @@ def home(request):
 
 #---------------- association details display -----------------#
 
+@login_required(login_url='login')
 def associationDetails(request, pk):
     association = Association.objects.get(id=pk)
 
@@ -98,6 +109,7 @@ def associationDetails(request, pk):
 
 #------------------- membership request process ----------------------#
 
+@login_required(login_url='login')
 def membershipRequest(request, pk):
     try:
         association = Association.objects.get(id=pk)
@@ -105,7 +117,7 @@ def membershipRequest(request, pk):
 
         if association and user is not None:
             AssociationMember.objects.create(user=user, association=association)
-            messages.success(request, 'Request is successfully submitted')
+            messages.success(request, 'Request is successfully submitted!')
             return redirect(reverse('associationDetails', kwargs={'pk': pk}))
     except:
         messages.error(request, 'Request is already submitted, or error in the process?')
@@ -114,6 +126,7 @@ def membershipRequest(request, pk):
     
 #-------------------- membership display ----------------------#
 
+@login_required(login_url='login')
 def memberships(request):
     currentUser = request.user
     members = AssociationMember.objects.filter(adminAccept=True, user=currentUser)
@@ -126,6 +139,7 @@ def memberships(request):
 
 #------------------- association services display --------------------#
 
+@login_required(login_url='login')
 def services(request, pk):
     association = Association.objects.get(id=pk)
     services = Service.objects.filter(association=association)
@@ -138,6 +152,7 @@ def services(request, pk):
 
 #------------------- association service request process ----------------------#
 
+@login_required(login_url='login')
 def serviceRequest(request, pk):    
     try:
         service = Service.objects.get(id=pk)
@@ -150,7 +165,7 @@ def serviceRequest(request, pk):
 
         if service and user is not None:
             ServiceRequest.objects.create(user=user, service=service)
-            messages.success(request, 'Request is successfully submitted')
+            messages.success(request, 'Request is successfully submitted!')
             return redirect(reverse('services', kwargs={'pk': id}))
     except:
         messages.error(request, 'Request is already submitted, or error in the process?')
@@ -159,6 +174,7 @@ def serviceRequest(request, pk):
 
 #-------------------- user profile/update --------------------#
 
+@login_required(login_url='login')
 def userProfile(request):
     currentUser = request.user
 
@@ -183,6 +199,7 @@ def userProfile(request):
 
 #-------------------- user password change -------------------------#
 
+@login_required(login_url='login')
 def password(request):
     currentUser = request.user
 
@@ -195,11 +212,37 @@ def password(request):
             return redirect('logout')
         
         else:
-            return render(request, 'userTemplates/passwordChange.html', {'form': form})
+            return render(request, 'userTemplates/passwordChange.html', context={'form': form})
         
     form = PasswordChangeForm(currentUser)
 
     context = {'form': form}
 
     return render(request, 'userTemplates/passwordChange.html', context=context)
+
+
+#----------------------- user feedbacks --------------------#
+
+@login_required(login_url='login')
+def feedbacks(request):
+    currentUser = request.user
+
+    if request.method == 'POST':
+        form = FeedbackForm(request.POST)
+
+        if form.is_valid():
+            addUser = form.save(commit=False)
+            addUser.user = currentUser
+            addUser.save()
+            messages.success(request, 'Feedback is successfully submitted!')
+            return redirect('feedbacks')
+        else:
+            messages.error(request, 'There is an error in the process?')
+            return render(request, 'userTemplates/feedbacks.html', context={'form': form})
+
+    form = FeedbackForm()
+
+    context = {'form': form}
+
+    return render(request, 'userTemplates/feedbacks.html', context=context)
 
