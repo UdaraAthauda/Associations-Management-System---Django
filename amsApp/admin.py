@@ -21,6 +21,7 @@ class AssociationMemberAdmin(admin.ModelAdmin):
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
     search_fields = ['serviceTitle', 'association__AssociationName']
+    list_filter = ['association__AssociationName']
 
 @admin.register(ServiceRequest)
 class ServiceRequestAdmin(admin.ModelAdmin):
